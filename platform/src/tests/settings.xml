@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<eyesiomoSettings>
+	<kNeighbours>30</kNeighbours>
+	<stWidth>5000</stWidth>
+	<stHeight>10000</stHeight>
+	<imageBankPath>.\platform\src\tests\Test Imagebank</imageBankPath>
+	<charsBankPath>.\platform\src\tests\Test Charsbank</charsBankPath>
+</eyesiomoSettings>

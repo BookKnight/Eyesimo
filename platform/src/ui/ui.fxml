@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.ScatterChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane fx:id="gridPane" alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.Controller">
+   <columnConstraints>
+      <ColumnConstraints />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+   <children>
+      <Pane fx:id="mainPanel" minHeight="-Infinity" minWidth="-Infinity" prefHeight="672.0" prefWidth="754.0" scaleShape="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <children>
+            <TabPane fx:id="tabPanel" layoutX="-11.0" layoutY="17.0" prefHeight="657.0" prefWidth="764.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                  <Tab text="Обработка видео">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Button fx:id="beginVideoRecog" layoutX="516.0" layoutY="311.0" mnemonicParsing="false" onMouseClicked="#startVideoRecog" prefHeight="26.0" prefWidth="121.0" text="Начать" />
+                              <TextArea fx:id="videoRecogArea" layoutX="33.0" layoutY="375.0" prefHeight="228.0" prefWidth="706.0" promptText="Лог обработки" />
+                              <TextField fx:id="videoFilePathField" layoutX="51.0" layoutY="86.0" prefHeight="25.0" prefWidth="425.0" />
+                              <Button fx:id="chooseVideoButton" layoutX="566.0" layoutY="86.0" mnemonicParsing="false" onAction="#chooseVideoFile" text="Выбрать..." />
+                              <Label layoutX="51.0" layoutY="34.0" text="Путь до видеофайла:" />
+                              <Label layoutX="40.0" layoutY="307.0" text="FPS:" />
+                              <TextField fx:id="fpsField" layoutX="93.0" layoutY="289.0" prefHeight="52.0" prefWidth="80.0" promptText="fps" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </Tab>
+                <Tab text="Классификация изображений">
+                     <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="299.0" prefWidth="648.0">
+                           <children>
+                              <TableView fx:id="imageTable" layoutX="28.0" layoutY="44.0" prefHeight="272.0" prefWidth="411.0">
+                                <columns>
+                                  <TableColumn prefWidth="122.0" text="Имя изображения" />
+                                  <TableColumn prefWidth="95.0" text="Имя класса" />
+                                    <TableColumn prefWidth="193.0" text="Расположение" />
+                                </columns>
+                              </TableView>
+                              <Button fx:id="beginFindButton" layoutX="560.0" layoutY="272.0" mnemonicParsing="false" onMouseClicked="#beginClassification" prefHeight="34.0" prefWidth="152.0" text="Начать классификацию" />
+                              <Label layoutX="446.0" layoutY="98.0" text="Параметры:" />
+                              <Label layoutX="446.0" layoutY="140.0" text="Число соседей" />
+                              <Label layoutX="446.0" layoutY="192.0" text="Стандартные размеры" />
+                              <Label layoutX="552.0" layoutY="229.0" text="(Завистит от характеристик в банке)" />
+                              <Button fx:id="addImagesButton" layoutX="28.0" layoutY="326.0" mnemonicParsing="false" onMouseClicked="#addImages" text="Добавить изображения..." />
+                              <TextField fx:id="kParam" layoutX="608.0" layoutY="136.0" prefHeight="25.0" prefWidth="86.0" />
+                              <TextField fx:id="findWidth" editable="false" layoutX="581.0" layoutY="188.0" prefHeight="25.0" prefWidth="55.0" />
+                              <TextField fx:id="findHeight" editable="false" layoutX="667.0" layoutY="188.0" prefHeight="25.0" prefWidth="56.0" />
+                              <TextArea fx:id="findLogArea" layoutX="28.0" layoutY="403.0" prefHeight="182.0" prefWidth="722.0" promptText="Лог поиска..." />
+                              <Button fx:id="clearTable" layoutX="325.0" layoutY="326.0" mnemonicParsing="false" onMouseClicked="#clearTable" text="Очистить таблицу" />
+                              <Button fx:id="clearFindLog" layoutX="28.0" layoutY="589.0" mnemonicParsing="false" onMouseClicked="#clearLog" text="Очистить лог" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                </Tab>
+                <Tab text="Менеджер характеристик">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <RadioButton fx:id="optionalDir" layoutX="24.0" layoutY="60.0" mnemonicParsing="false" onAction="#setOptionalDir" text="Собрать характеристики для произвольного каталога" />
+                              <RadioButton fx:id="defaultDir" layoutX="24.0" layoutY="248.0" mnemonicParsing="false" onAction="#setDefaultDir" text="Собрать характеристики для всего банка изображений ( расположение по умолчанию )" />
+                              <TextField fx:id="optionalImageDirPath" layoutX="47.0" layoutY="103.0" prefHeight="29.0" prefWidth="405.0" promptText="Каталог изображений" />
+                              <TextField fx:id="optionalCharsDirPath" layoutX="45.0" layoutY="166.0" prefHeight="29.0" prefWidth="404.0" promptText="Каталог для характеристик" />
+                              <Button fx:id="setOptionalImageDirButton" layoutX="507.0" layoutY="105.0" mnemonicParsing="false" onMouseClicked="#setOptionalImagePath" text="Выбрать..." />
+                              <Button fx:id="setOptionalCharsDirButton" layoutX="507.0" layoutY="168.0" mnemonicParsing="false" onMouseClicked="#setOptionalCharsPath" text="Выбрать..." />
+                              <Label layoutX="45.0" layoutY="334.0" text="Стандартные размеры" />
+                              <TextField fx:id="standardWidth" layoutX="235.0" layoutY="330.0" prefHeight="29.0" prefWidth="65.0" />
+                              <TextField fx:id="standardHeight" layoutX="341.0" layoutY="330.0" prefHeight="29.0" prefWidth="64.0" />
+                              <TextArea fx:id="charsMakerLogArea" layoutX="23.0" layoutY="403.0" prefHeight="200.0" prefWidth="719.0" />
+                              <Button fx:id="beginMakeCharsButton" layoutX="509.0" layoutY="328.0" mnemonicParsing="false" onMouseClicked="#makeChars" prefHeight="34.0" prefWidth="68.0" text="Начать" />
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                  <Tab fx:id="learnTab" text="Обучение">
+                    <content>
+                      <AnchorPane fx:id="learnAnchorPanel" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <CheckBox fx:id="learnKCheckBox" layoutX="38.0" layoutY="80.0" mnemonicParsing="false" text="Обучение числа ближайших соседей" />
+                              <CheckBox fx:id="saveKCheckBox" layoutX="38.0" layoutY="126.0" mnemonicParsing="false" text="Сохранить полученное значение в настройках Eyesimo" />
+                              <TextArea fx:id="learningLogArea" layoutX="38.0" layoutY="410.0" maxHeight="30000.0" prefHeight="200.0" prefRowCount="30000" prefWidth="690.0" />
+                              <Button fx:id="beginLearnButton" layoutX="526.0" layoutY="355.0" mnemonicParsing="false" onMouseClicked="#beginLearn" prefHeight="34.0" prefWidth="127.0" text="Начать обучение" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </Tab>
+                  <Tab text="Отбор эталонов">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="643.0" prefWidth="771.0">
+                           <children>
+                              <ChoiceBox fx:id="classChoiceBox" layoutX="544.0" layoutY="68.0" prefWidth="150.0" />
+                              <Label layoutX="544.0" layoutY="29.0" text="Класс объектов:" />
+                              <Button fx:id="drawChartButton" layoutX="544.0" layoutY="118.0" mnemonicParsing="false" onMouseClicked="#drawChart" text="Построить график" />
+                              <TextField fx:id="marginLimitField" layoutX="545.0" layoutY="247.0" prefHeight="25.0" prefWidth="59.0" />
+                              <Label layoutX="545.0" layoutY="212.0" text="Допуск:" />
+                              <Button fx:id="extractSamplesButton" layoutX="544.0" layoutY="302.0" mnemonicParsing="false" onMouseClicked="#extractSamples" text="Отобрать эталоны" />
+                              <ScatterChart fx:id="chartPane" layoutX="32.0" layoutY="72.0" stylesheets="@styleUI.css">
+                                <xAxis>
+                                  <NumberAxis side="BOTTOM" />
+                                </xAxis>
+                                <yAxis>
+                                  <NumberAxis side="LEFT" />
+                                </yAxis>
+                              </ScatterChart>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
+            <MenuBar layoutX="-11.0" layoutY="-12.0" prefHeight="34.0" prefWidth="764.0">
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Close" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Delete" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+         </children>
+      </Pane>
+   </children>
+</GridPane>
